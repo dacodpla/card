@@ -41,7 +41,7 @@ body {
   position: absolute;
   backface-visibility: hidden;
   background: url("assets/paper-texture.png") center/cover;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.3);
   padding: 20px;
 }
 
@@ -105,4 +105,32 @@ body {
 .qr {
   width: 150px;
   height: 150px;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .card-container {
+    width: 90vw;
+    aspect-ratio: 310 / 500; /* portrait ratio */
+  }
+
+  .card-face {
+    padding: 15px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .address {
+    font-size: 11px;
+  }
+
+  .qr {
+    width: 120px;
+    height: 120px;
+  }
 }
