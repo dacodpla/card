@@ -96,7 +96,7 @@ function initTilt() {
   VanillaTilt.init(cardContainer, {
     max: 15,
     speed: 400,
-    glare: true,
+    glare: false,
     gyroscope: false, // disable built-in gyroscope (unreliable on Samsung/Chrome)
   });
 
