@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+        color: rgb(255, 255, 255);
+        background: rgb(0, 0, 0);
+      }
+
 body {
   height: 100vh;
   display: flex;
@@ -87,11 +92,12 @@ body {
 }
 
 .address {
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   line-height: 1.4;
   color: #333;
   font-weight: 200;
+  padding-top: 50px;
 }
 
 /* Back Face */
@@ -136,6 +142,10 @@ body {
     max-height: calc(90vw);
     perspective: 1200px;
     transform: none !important; /* VERY IMPORTANT: do not counter-rotate the inner card */
+  }
+
+  .address {
+    font-size: 10px;
   }
 
   /* optional fine-tune: scale down on very narrow phones */
