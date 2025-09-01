@@ -124,8 +124,8 @@ function initTilt() {
     let beta = event.beta || 0;
 
     // normalize values (-90 to 90) into VanillaTilt range
-    vt.tiltX = (gamma / 45) * vt.settings.max; // left/right
-    vt.tiltY = (beta / 45) * vt.settings.max;  // up/down
+    vt.tiltX = (gamma / 15) * vt.settings.max; // left/right
+    vt.tiltY = (beta / 15) * vt.settings.max;  // up/down
 
     vt.updateTransform();
   }, true);
