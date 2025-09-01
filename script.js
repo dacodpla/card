@@ -1,9 +1,10 @@
 const card = document.querySelector(".card");
+const cardContainer = document.querySelector(".card-container");
 let startX = 0;
 let endX = 0;
 let isFlipped = false; // keep track of state
 
-// Flip on click (fallback)
+// --- Flip on click (fallback) ---
 card.addEventListener("click", () => {
   isFlipped = !isFlipped;
   updateFlip();
@@ -53,7 +54,7 @@ function updateFlip() {
   }
 }
 
-// --- Wallet pop entrance animation --- //
+// --- Entrance animation ---
 window.addEventListener("load", () => {
   gsap.from(".card-container", {
     y: 80,
@@ -63,3 +64,41 @@ window.addEventListener("load", () => {
     ease: "back.out(1.7)"
   });
 });
+
+// --- VanillaTilt setup ---
+// Enable tilt everywhere, but remap axes in portrait
+function initTilt() {
+  // Destroy if already exists
+  if (cardContainer.vanillaTilt) {
+    cardContainer.vanillaTilt.destroy();
+  }
+
+  VanillaTilt.init(cardContainer, {
+    max: 15,
+    speed: 400,
+    glare: true,
+    gyroscope: true,
+  });
+
+  // If in portrait, swap tilt axes
+  if (window.matchMedia("(max-width: 600px) and (orientation: portrait)").matches) {
+    const vt = cardContainer.vanillaTilt;
+
+    // Override updateTransform to swap X and Y
+    const originalUpdate = vt.updateTransform.bind(vt);
+    vt.updateTransform = function() {
+      // swap tiltX and tiltY
+      const oldX = this.tiltX;
+      this.tiltX = this.tiltY;
+      this.tiltY = -oldX;
+      originalUpdate();
+    };
+  }
+}
+
+// Run once on load
+initTilt();
+
+// Run again whenever window resizes or rotates
+window.addEventListener("resize", initTilt);
+window.addEventListener("orientationchange", initTilt);
