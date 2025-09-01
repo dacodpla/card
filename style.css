@@ -6,9 +6,9 @@
 }
 
 ::selection {
-        color: rgb(255, 255, 255);
-        background: rgb(0, 0, 0);
-      }
+  color: #fff;
+  background: #000;
+}
 
 body {
   height: 100vh;
@@ -19,14 +19,14 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* Card Container */
+/* Card Container (perspective only) */
 .card-container {
   width: 500px;
   height: 310px;
   perspective: 1200px;
 }
 
-/* Card Faces */
+/* Card (flip only, no texture here) */
 .card {
   width: 100%;
   height: 100%;
@@ -40,17 +40,29 @@ body {
   transform: rotateY(180deg);
 }
 
+/* Card Faces (each side has its own paper texture) */
 .card-face {
   width: 100%;
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
-  background: url("assets/paper-texture.png") center/cover;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.3);
+  -webkit-backface-visibility: hidden;
   padding: 20px;
+
+  /* paper texture belongs here */
+  background: url("assets/paper-texture.png") center/cover;
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.12),
+    inset 0 2px 6px rgba(0,0,0,0.03);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 /* Front Face */
+.card-front {
+  transform: rotateY(0deg);
+}
+
 .card-front .top-row {
   display: flex;
   justify-content: space-between;
@@ -106,6 +118,9 @@ body {
   justify-content: center;
   align-items: center;
   transform: rotateY(180deg);
+
+  /* optional: make the back a little darker */
+  filter: brightness(0.95);
 }
 
 .qr {
@@ -115,16 +130,14 @@ body {
 
 /* Portrait phones: rotate the whole card (including content) 90deg */
 @media (max-width: 600px) and (orientation: portrait) {
-  /* avoid awkward scrolling when rotated */
   html, body {
     height: 100%;
     overflow: hidden;
   }
 
-  /* wrapper becomes the rotated viewport */
   .card-wrapper {
-    width: 100vh;            /* use viewport height as width because we're rotating */
-    height: 100vw;           /* use viewport width as height */
+    width: 100vh;
+    height: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,21 +147,19 @@ body {
     position: relative;
   }
 
-  /* keep the original landscape card size but allow it to shrink to fit */
   .card-container {
-    width: 500px;            /* original landscape width */
-    height: 310px;           /* original landscape height */
-    max-width: calc(90vh);   /* ensure it fits smaller devices */
-    max-height: calc(90vw);
+    width: 500px;
+    height: 310px;
+    max-width: 90vh;
+    max-height: 90vw;
     perspective: 1200px;
-    transform: none !important; /* VERY IMPORTANT: do not counter-rotate the inner card */
+    transform: none !important;
   }
 
   .address {
     font-size: 10px;
   }
 
-  /* optional fine-tune: scale down on very narrow phones */
   @media (max-width: 360px) and (orientation: portrait) {
     .card-container {
       transform: scale(0.85);
@@ -156,6 +167,3 @@ body {
     }
   }
 }
-
-
-
