@@ -86,7 +86,7 @@ function requestMotionPermission() {
   }
 }
 
-// Enable tilt everywhere, but remap axes in portrait
+// --- VanillaTilt setup ---
 function initTilt() {
   // Destroy if already exists
   if (cardContainer.vanillaTilt) {
@@ -97,7 +97,7 @@ function initTilt() {
     max: 15,
     speed: 400,
     glare: true,
-    gyroscope: true,
+    gyroscope: false, // disable built-in gyroscope (unreliable on Samsung/Chrome)
   });
 
   // If in portrait, swap tilt axes
@@ -107,14 +107,30 @@ function initTilt() {
     // Override updateTransform to swap X and Y
     const originalUpdate = vt.updateTransform.bind(vt);
     vt.updateTransform = function() {
-      // swap tiltX and tiltY
       const oldX = this.tiltX;
       this.tiltX = this.tiltY;
       this.tiltY = -oldX;
       originalUpdate();
     };
   }
+
+  // --- Custom gyroscope handling ---
+  window.addEventListener("deviceorientation", (event) => {
+    const vt = cardContainer.vanillaTilt;
+    if (!vt) return;
+
+    // event.gamma = left/right, event.beta = front/back
+    let gamma = event.gamma || 0; 
+    let beta = event.beta || 0;
+
+    // normalize values (-90 to 90) into VanillaTilt range
+    vt.tiltX = (gamma / 45) * vt.settings.max; // left/right
+    vt.tiltY = (beta / 45) * vt.settings.max;  // up/down
+
+    vt.updateTransform();
+  }, true);
 }
+
 
 // Run once on load
 initTilt();
