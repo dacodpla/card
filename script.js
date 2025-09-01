@@ -63,9 +63,29 @@ window.addEventListener("load", () => {
     duration: 1,
     ease: "back.out(1.7)"
   });
+
+  requestMotionPermission(); // ask for motion sensor access
 });
 
 // --- VanillaTilt setup ---
+
+// --- Request device motion permission (needed for iOS & some Android) ---
+function requestMotionPermission() {
+  if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+    // iOS
+    DeviceOrientationEvent.requestPermission()
+      .then(response => {
+        if (response === "granted") {
+          console.log("Motion permission granted (iOS).");
+        }
+      })
+      .catch(console.error);
+  } else {
+    // Android Chrome: must be enabled in Site Settings → Motion Sensors
+    console.log("If tilt doesn't work, enable Motion Sensors in Chrome site settings.");
+  }
+}
+
 // Enable tilt everywhere, but remap axes in portrait
 function initTilt() {
   // Destroy if already exists
