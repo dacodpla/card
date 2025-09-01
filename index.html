@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dylan Christanna - Business Card</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- VanillaTilt for 3D hover/gyro -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+</head>
+<body>
+  <div class="card-container" 
+       data-tilt 
+       data-tilt-max="15" 
+       data-tilt-speed="400" 
+       data-tilt-glare="true"
+       data-tilt-gyroscope="true">
+
+    <div class="card">
+      <!-- Front Face -->
+      <div class="card-face card-front">
+        <div class="top-row">
+          <span class="phone">+62 896-3830-2328</span>
+          <img src="assets/logo.png" alt="Logo" class="logo">
+        </div>
+        <div class="name">Dylan Alexander <span class="surname">CHRISTANNA</span></div>
+        <div class="title">UI/UX Designer</div>
+        <div class="address">
+          KM. 37, Jl. Raya Jakarta-Bogor No.63, Sukamaju, 
+          Kec. Cilodong, Kota Depok, Jawa Barat 16475
+        </div>
+      </div>
+
+      <!-- Back Face -->
+      <div class="card-face card-back">
+        <img src="assets/qr.png" alt="QR Code" class="qr">
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

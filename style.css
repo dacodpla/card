@@ -1,0 +1,108 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Card Container */
+.card-container {
+  width: 500px;
+  height: 310px;
+  perspective: 1200px;
+}
+
+/* Card Faces */
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  background: url("assets/paper-texture.png") center/cover;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+}
+
+/* Front Face */
+.card-front .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.phone {
+  font-size: 14px;
+  font-weight: 200;
+  color: #111;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.name {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 5px;
+  color: #111;
+  font-weight: 200;
+}
+
+.surname {
+  font-weight: bold;
+  background: linear-gradient(90deg, #be3939, #c684c6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 100;
+}
+
+.address {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.4;
+  color: #333;
+  font-weight: 200;
+}
+
+/* Back Face */
+.card-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+}
+
+.qr {
+  width: 150px;
+  height: 150px;
+}
